@@ -43,12 +43,12 @@ var windowAlias = window
 var cookie = require('browser-cookie-lite')
 
 // if (windowAlias.GlobalSnowplowNamespace && windowAlias.GlobalSnowplowNamespace.length > 0) {
-// 	queueName = windowAlias.GlobalSnowplowNamespace.shift()
-// 	queue = windowAlias[queueName]
-// 	queue.q = new snowplow.Snowplow(queue.q, queueName)
+//   queueName = windowAlias.GlobalSnowplowNamespace.shift()
+//   queue = windowAlias[queueName]
+//   queue.q = new snowplow.Snowplow(queue.q, queueName)
 // } else {
-// 	windowAlias._snaq = windowAlias._snaq || []
-// 	windowAlias._snaq = new snowplow.Snowplow(windowAlias._snaq, '_snaq')
+//   windowAlias._snaq = windowAlias._snaq || []
+//   windowAlias._snaq = new snowplow.Snowplow(windowAlias._snaq, '_snaq')
 // }
 
 
