@@ -66,7 +66,7 @@ var METHODS = {
 
   domain: function (v) {
     domain = v
-  }
+  },
 
   // namespace prefix
   prefix: function (v) {
