@@ -686,6 +686,7 @@
       sb.add('duid', _domainUserId); // Set to our local variable
       sb.add('fp', userFingerprint);
       sb.add('uid', businessUserId);
+      sb.add('exp_groups', windowAlias._snq.exp || '');
 
       refreshUrl();
 

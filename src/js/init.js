@@ -57,7 +57,6 @@ var prefix
 var app
 var domain
 var pv_init_data
-var exp
 
 var METHODS = {
   // appId
@@ -89,7 +88,7 @@ var METHODS = {
   },
 
   exp: function (v) {
-    exp = v
+    _snq.exp = v
   }
 }
 
