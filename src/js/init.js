@@ -53,7 +53,7 @@ var cookie = require('browser-cookie-lite')
 
 
 var cleaned_snq = []
-var prefix
+var namespace
 var app
 var domain
 var pv_init_data
@@ -69,8 +69,8 @@ var METHODS = {
   },
 
   // namespace prefix
-  prefix: function (v) {
-    prefix = v
+  namespace: function (v) {
+    namespace = v
   },
 
   // disable this method
@@ -127,7 +127,7 @@ cleaned_snq.unshift(
     'newTracker',
 
     // namespace default to `'wapT'`
-    prefix || 'wapT',
+    namespace || 'wapT',
 
     // collector url
     't.xiaohongshu.com/api/collect',
