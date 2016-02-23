@@ -38,7 +38,7 @@
     lodash = require('../lib_managed/lodash'),
     murmurhash3_32_gc = require('murmurhash').v3,
     tz = require('jstimezonedetect').jstz.determine(),
-    cookie = require('browser-cookie-lite'),
+    cookie = require('./cookie'),
 
     object = typeof exports !== 'undefined' ? exports : this, // For eventual node.js environment support
 
@@ -99,8 +99,8 @@
     var cookieName = testCookieName || 'testcookie';
 
     if (lodash.isUndefined(navigatorAlias.cookieEnabled)) {
-      cookie.cookie(cookieName, '1');
-      return cookie.cookie(cookieName) === '1' ? '1' : '0';
+      cookie(cookieName, '1');
+      return cookie(cookieName) === '1' ? '1' : '0';
     }
 
     return navigatorAlias.cookieEnabled ? '1' : '0';

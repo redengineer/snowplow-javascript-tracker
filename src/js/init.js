@@ -40,7 +40,7 @@
 
 var snowplow = require('./snowplow')
 var windowAlias = window
-var cookie = require('browser-cookie-lite')
+var cookie = require('./lib/cookie')
 
 // if (windowAlias.GlobalSnowplowNamespace && windowAlias.GlobalSnowplowNamespace.length > 0) {
 //   queueName = windowAlias.GlobalSnowplowNamespace.shift()
@@ -107,6 +107,32 @@ function get_method (args) {
 }
 
 
+// function url_param (key) {
+//   return (location.search.split(key + '=')[1] || '')
+//     .split('&')[0]
+// }
+
+
+function get_platform () {
+  // var channel_from_url = url_param('utm_source') || url_param('xhschannel')
+
+  // // Detect url first, the utm_source might be changed
+  // if (channel_from_url) {
+  //   // save session cookie
+  //   cookie('xhs_channel', channel_from_url)
+  //   return 'mob_' + channel_from_url
+  // }
+
+  // var channel_from_cookie = cookie('xhs_channel')
+  // if (channel_from_cookie) {
+  //   return = 'mob_' + channel_from_cookie
+  // }
+
+  return 'mob'
+  // returns 'mob' for now, we should use utm_source instead of get_platform
+}
+
+
 var _snq = windowAlias._snq = windowAlias._snq || []
 
 _snq.forEach(function (directive) {
@@ -159,7 +185,6 @@ cleaned_snq.unshift(
         geolocation: false
       }
     }
-
   ]
 )
 

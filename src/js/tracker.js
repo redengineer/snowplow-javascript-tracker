@@ -38,7 +38,7 @@
     lodash = require('./lib_managed/lodash'),
     helpers = require('./lib/helpers'),
     proxies = require('./lib/proxies'),
-    cookie = require('browser-cookie-lite'),
+    cookie = require('./lib/cookie'),
     detectors = require('./lib/detectors'),
     json2 = require('JSON'),
     sha1 = require('sha1'),
@@ -431,7 +431,7 @@
      * Cookie getter.
      */
     function getSnowplowCookieValue(cookieName) {
-      return cookie.cookie(getSnowplowCookieName(cookieName));
+      return cookie(getSnowplowCookieName(cookieName));
     }
 
     /*
@@ -522,7 +522,7 @@
      * Sets or renews the session cookie
      */
     function setSessionCookie() {
-      cookie.cookie(getSnowplowCookieName('ses'), '*', configSessionCookieTimeout, configCookiePath, configCookieDomain);
+      cookie(getSnowplowCookieName('ses'), '*', configSessionCookieTimeout, configCookiePath, configCookieDomain);
     }
 
     /*
@@ -530,7 +530,7 @@
      * or when there is a new visit or a new page view
      */
     function setDomainUserIdCookie(_domainUserId, createTs, visitCount, nowTs, lastVisitTs, sessionId) {
-      cookie.cookie(
+      cookie(
         getSnowplowCookieName('id'),
         _domainUserId + '.' + createTs + '.' + visitCount + '.' + nowTs + '.' + lastVisitTs + '.' + sessionId,
         configVisitorCookieTimeout,
@@ -638,7 +638,7 @@
       var nowTs = Math.round(new Date().getTime() / 1000),
         idname = getSnowplowCookieName('id'),
         sesname = getSnowplowCookieName('ses'),
-        ses = getSnowplowCookieValue('ses'), // aka cookie.cookie(sesname)
+        ses = getSnowplowCookieValue('ses'), // aka cookie(sesname)
         id = loadDomainUserIdCookie(),
         cookiesDisabled = id[0],
         _domainUserId = id[1], // We could use the global (domainUserId) but this is better etiquette
@@ -649,8 +649,8 @@
         sessionIdFromCookie = id[6];
 
       if (configDoNotTrack && configUseCookies) {
-        cookie.cookie(idname, '', -1, configCookiePath, configCookieDomain);
-        cookie.cookie(sesname, '', -1, configCookiePath, configCookieDomain);
+        cookie(idname, '', -1, configCookiePath, configCookieDomain);
+        cookie(sesname, '', -1, configCookiePath, configCookieDomain);
         return;
       }
 
@@ -830,7 +830,7 @@
     function getGaCookiesContext() {
       var gaCookieData = {};
       lodash.forEach(['__utma', '__utmb', '__utmc', '__utmv', '__utmz', '_ga'], function (cookieType) {
-        var value = cookie.cookie(cookieType);
+        var value = cookie(cookieType);
         if (value) {
           gaCookieData[cookieType] = value;
         }
@@ -1387,7 +1387,7 @@
        * @param string cookieName Name of the cookie whose value will be assigned to businessUserId
        */
       setUserIdFromCookie: function(cookieName) {
-        businessUserId = cookie.cookie(cookieName);
+        businessUserId = cookie(cookieName);
       },
 
       /**
