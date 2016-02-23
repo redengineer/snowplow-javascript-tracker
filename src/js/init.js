@@ -39,6 +39,7 @@
  */
 
 var snowplow = require('./snowplow')
+var lodash = require('./lib_managed/lodash')
 var windowAlias = window
 var cookie = require('./lib/cookie')
 
@@ -93,8 +94,18 @@ var METHODS = {
 }
 
 
+function check_directive (directive) {
+  return lodash.isArray(directive) && directive.length
+}
+
+
 // Get the built-in one-time commander
-function get_method (name) {
+function get_method (directive) {
+  var name = directive[0]
+  if (!name) {
+    return
+  }
+
   // 'trackPageView:wapT' -> trackPageView
   name = name.split(':')[0]
 
@@ -131,12 +142,11 @@ function get_platform () {
 var _snq = windowAlias._snq = windowAlias._snq || []
 
 _snq.forEach(function (directive) {
-  var name = directive[0]
-  if (!name) {
+  if (!check_directive(directive)) {
     return
   }
 
-  var method = get_method(name)
+  var method = get_method(directive)
   if (method) {
     directive.shift()
     return method.apply(null, directive)
@@ -202,5 +212,5 @@ var _push = new snowplow.Snowplow(cleaned_snq, '_snq').push
 
 // Custom push method
 _snq.push = function push (directive) {
-  !get_method(directive) && _push(directive)
+  check_directive(directive) && !get_method(directive) && _push(directive)
 }

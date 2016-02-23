@@ -65,7 +65,10 @@
     // Fall back to GET for browsers which don't support CORS XMLHttpRequests (e.g. IE <= 9)
     usePost = usePost && window.XMLHttpRequest && ('withCredentials' in new XMLHttpRequest());
 
-    var path = usePost ? '/com.snowplowanalytics.snowplow/tp2' : '/i';
+    // var path = usePost ? '/com.snowplowanalytics.snowplow/tp2' : '/i';
+
+    // no argument into collector url
+    var path = '';
 
     bufferSize = (localStorageAccessible() && useLocalStorage && usePost && bufferSize) || 1;
 
@@ -172,7 +175,6 @@
      * If we're not processing the queue, we'll start.
      */
     function enqueueRequest (request, url) {
-
       configCollectorUrl = url + path;
       if (usePost) {
         var body = getBody(request);
@@ -314,7 +316,7 @@
      */
     function encloseInPayloadDataEnvelope(events) {
       return json2.stringify({
-        schema: 'iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3',
+        schema: 'payload',
         data: events
       });
     }

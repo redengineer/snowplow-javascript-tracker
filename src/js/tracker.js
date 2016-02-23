@@ -755,7 +755,7 @@
      */
     function getWebPageContext() {
       return {
-        schema: 'iglu:com.snowplowanalytics.snowplow/web_page/jsonschema/1-0-0',
+        schema: 'web',
         data: {
           id: pageViewId
         }
@@ -790,7 +790,7 @@
         }
 
         return {
-          schema: 'iglu:org.w3/PerformanceTiming/jsonschema/1-0-0',
+          schema: 'timing',
           data: performanceTiming
         };
       }
@@ -805,7 +805,7 @@
         navigator.geolocation.getCurrentPosition(function (position) {
           var coords = position.coords;
           var geolocationContext = {
-            schema: 'iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0',
+            schema: 'geo',
             data: {
               latitude: coords.latitude,
               longitude: coords.longitude,
@@ -836,7 +836,7 @@
         }
       });
       return {
-        schema: 'iglu:com.google.analytics/cookies/jsonschema/1-0-0',
+        schema: 'cookie',
         data: gaCookieData
       };
     }
@@ -1711,7 +1711,7 @@
        */
       trackTiming: function (category, variable, timing, label, context) {
         core.trackUnstructEvent({
-          schema: 'iglu:com.snowplowanalytics.snowplow/timing/jsonschema/1-0-0',
+          schema: 'timing',
           data: {
             category: category,
             variable: variable,
