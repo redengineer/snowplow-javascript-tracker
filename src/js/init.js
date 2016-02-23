@@ -58,6 +58,7 @@ var namespace
 var app
 var domain
 var pv_init_data
+var url
 
 var METHODS = {
   // appId
@@ -90,6 +91,10 @@ var METHODS = {
 
   exp: function (v) {
     _snq.exp = v
+  },
+
+  url: function (v) {
+    url = v
   }
 }
 
@@ -141,6 +146,7 @@ function get_platform () {
 
 var _snq = windowAlias._snq = windowAlias._snq || []
 
+// Run configuration first
 _snq.forEach(function (directive) {
   if (!check_directive(directive)) {
     return
@@ -157,7 +163,6 @@ _snq.forEach(function (directive) {
 
 _snq.length = 0
 
-// first of all, create new tracker
 cleaned_snq.unshift(
   [
     'newTracker',
@@ -166,7 +171,8 @@ cleaned_snq.unshift(
     namespace || 'wapT',
 
     // collector url
-    't.xiaohongshu.com/api/collect',
+    url || 't.xiaohongshu.com/api/collect',
+
     {
       appId: app || 'xhs-wap',
       platform: get_platform(),
@@ -208,6 +214,7 @@ cleaned_snq.push(
   }]
 )
 
+//  Then, init tracker and run queued command
 var _push = new snowplow.Snowplow(cleaned_snq, '_snq').push
 
 // Custom push method
