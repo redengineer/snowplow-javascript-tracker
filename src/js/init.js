@@ -94,12 +94,7 @@ var METHODS = {
 
 
 // Get the built-in one-time commander
-function get_method (args) {
-  var name = args[0]
-  if (!name) {
-    return
-  }
-
+function get_method (name) {
   // 'trackPageView:wapT' -> trackPageView
   name = name.split(':')[0]
 
@@ -136,10 +131,15 @@ function get_platform () {
 var _snq = windowAlias._snq = windowAlias._snq || []
 
 _snq.forEach(function (directive) {
-  var method = get_method(directive)
+  var name = directive[0]
+  if (!name) {
+    return
+  }
+
+  var method = get_method(name)
   if (method) {
     directive.shift()
-    return method.apply(null, args)
+    return method.apply(null, directive)
   }
 
   cleaned_snq.push(directive)
