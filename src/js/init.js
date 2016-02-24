@@ -209,7 +209,8 @@ cleaned_snq.push(
 
   // send pv automatically
   ['trackPageView', {
-    schema: 'dd:com.xhs/page/json/1-0-0',
+    // dd:com.xhs/page/json/1-0-0
+    schema: 'payload',
     data: pv_init_data || {}
   }]
 )
