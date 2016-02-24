@@ -40,12 +40,12 @@
     proxies = require('./lib/proxies'),
     cookie = require('./lib/cookie'),
     detectors = require('./lib/detectors'),
-    json2 = require('JSON'),
+    json2 = JSON,
     sha1 = require('sha1'),
     links = require('./links'),
     forms = require('./forms'),
     requestQueue = require('./out_queue'),
-    coreConstructor = require('snowplow-tracker-core'),
+    coreConstructor = require('./core'),
     uuid = require('uuid'),
 
     object = typeof exports !== 'undefined' ? exports : this; // For eventual node.js environment support

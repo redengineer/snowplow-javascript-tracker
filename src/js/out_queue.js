@@ -35,7 +35,8 @@
 ;(function() {
 
   var
-    json2 = require('JSON'),
+    json2 = JSON,
+    // json2 = require('JSON'),
     lodash = require('./lib_managed/lodash'),
     localStorageAccessible = require('./lib/detectors').localStorageAccessible,
     helpers = require('./lib/helpers'),
