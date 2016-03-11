@@ -89,9 +89,9 @@ var METHODS = {
     pv_init_data = v
   },
 
-  exp: function (v) {
-    _snq.exp = v
-  },
+  // exp: function (v) {
+  //   _snq.exp = v
+  // },
 
   url: function (v) {
     url = v
@@ -118,10 +118,24 @@ function get_method (directive) {
 }
 
 
-// function url_param (key) {
-//   return (location.search.split(key + '=')[1] || '')
-//     .split('&')[0]
-// }
+function url_param (key) {
+  return (location.search.split(key + '=')[1] || '')
+    .split('&')[0]
+}
+
+
+// If there is a dl_td cookie, use it as the talking data tracking id
+var sem_td = url_param('sem_td')
+if (sem_td) {
+  cookie('dl_td', sem_td, 0, '/')
+}
+
+
+// Lumos experiment ids
+var exp_ids = cookie('exp_ids')
+if (exp_ids) {
+  _snq.exp = exp_ids
+}
 
 
 function get_platform () {
