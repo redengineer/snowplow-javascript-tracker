@@ -124,20 +124,6 @@ function url_param (key) {
 }
 
 
-// If there is a dl_td cookie, use it as the talking data tracking id
-var sem_td = url_param('sem_td')
-if (sem_td) {
-  cookie('dl_td', sem_td, 0, '/')
-}
-
-
-// Lumos experiment ids
-var exp_ids = cookie('exp_ids')
-if (exp_ids) {
-  _snq.exp = exp_ids
-}
-
-
 function get_platform () {
   // var channel_from_url = url_param('utm_source') || url_param('xhschannel')
 
@@ -159,6 +145,21 @@ function get_platform () {
 
 
 var _snq = windowAlias._snq = windowAlias._snq || []
+
+
+// If there is a dl_td cookie, use it as the talking data tracking id
+var sem_td = url_param('sem_td')
+if (sem_td) {
+  cookie('dl_td', sem_td, 0, '/')
+}
+
+
+// Lumos experiment ids
+var exp_ids = cookie('exp_ids')
+if (exp_ids) {
+  _snq.exp = exp_ids
+}
+
 
 // Run configuration first
 _snq.forEach(function (directive) {
