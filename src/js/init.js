@@ -157,7 +157,9 @@ if (sem_td) {
 // Lumos experiment ids
 var exp_ids = cookie('exp_ids')
 if (exp_ids) {
-  _snq.exp = exp_ids
+  // Python's SimpleCookie is buggy with ','
+  // so use '|' to split values and then replace it with ','
+  _snq.exp = exp_ids.replace(/|/g, ',')
 }
 
 
@@ -208,7 +210,7 @@ cleaned_snq.unshift(
       bufferSize: 1,
       maxPostBytes: 450000,
       crossDomainLinker: function(a) {
-        return true
+        return false
       },
       contexts: {
         performanceTiming: true,
