@@ -159,7 +159,7 @@ var exp_ids = cookie('exp_ids')
 if (exp_ids) {
   // Python's SimpleCookie is buggy with ','
   // so use '|' to split values and then replace it with ','
-  _snq.exp = exp_ids.replace(/|/g, ',')
+  _snq.exp = exp_ids.replace(/\|/g, ',')
 }
 
 
