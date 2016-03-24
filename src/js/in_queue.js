@@ -32,7 +32,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-;(function() {
+// ;(function() {
 
   var
     lodash = require('./lib_managed/lodash'),
@@ -185,4 +185,4 @@
     };
   };
 
-}());
+// }());

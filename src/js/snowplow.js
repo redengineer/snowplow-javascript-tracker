@@ -71,7 +71,7 @@
   addPlugin, getAsyncTracker
 */
 
-;(function() {
+// ;(function() {
 
   // Load all our modules (at least until we fully modularize & remove grunt-concat)
   var
@@ -259,4 +259,4 @@
     return new queue.InQueueManager(tracker.Tracker, version, mutSnowplowState, asynchronousQueue, functionName);
   };
 
-}());
+// }());

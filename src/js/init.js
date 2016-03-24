@@ -125,42 +125,48 @@ function url_param (key) {
 
 
 function get_platform () {
-  // var channel_from_url = url_param('utm_source') || url_param('xhschannel')
-
-  // // Detect url first, the utm_source might be changed
-  // if (channel_from_url) {
-  //   // save session cookie
-  //   cookie('xhs_channel', channel_from_url)
-  //   return 'mob_' + channel_from_url
-  // }
-
-  // var channel_from_cookie = cookie('xhs_channel')
-  // if (channel_from_cookie) {
-  //   return = 'mob_' + channel_from_cookie
-  // }
-
   return 'mob'
-  // returns 'mob' for now, we should use utm_source instead of get_platform
+}
+
+
+function handle_download_talking_data () {
+  // If there is a dl_td cookie, use it as the talking data tracking id
+  var sem_td = url_param('sem_td')
+  if (sem_td) {
+    cookie('dl_td', sem_td, 0, '/')
+  }
+}
+
+
+function handle_utm_source () {
+
+  // Always use the utm_source if there is
+  var utm_source = url_param('utm_source')
+    // Only use the current utm_source in cookie if there is a referrer,
+    // or clean the utm_source
+    || document.referrer && cookie('sp_us')
+
+  cookie('sp_us', utm_source || '')
+  _snq.utm = utm_source
+}
+
+
+function handle_lumos_experiment () {
+  // Lumos experiment ids
+  var exp_ids = cookie('exp_ids')
+  if (exp_ids) {
+    // Python's SimpleCookie is buggy with ','
+    // so use '|' to split values and then replace it with ','
+    _snq.exp = exp_ids.replace(/\|/g, ',')
+  }
 }
 
 
 var _snq = windowAlias._snq = windowAlias._snq || []
 
-
-// If there is a dl_td cookie, use it as the talking data tracking id
-var sem_td = url_param('sem_td')
-if (sem_td) {
-  cookie('dl_td', sem_td, 0, '/')
-}
-
-
-// Lumos experiment ids
-var exp_ids = cookie('exp_ids')
-if (exp_ids) {
-  // Python's SimpleCookie is buggy with ','
-  // so use '|' to split values and then replace it with ','
-  _snq.exp = exp_ids.replace(/\|/g, ',')
-}
+handle_download_talking_data()
+handle_utm_source()
+handle_lumos_experiment()
 
 
 // Run configuration first

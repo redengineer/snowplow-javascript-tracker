@@ -32,7 +32,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-;(function() {
+// ;(function() {
 
   var
     lodash = require('./lib_managed/lodash'),
@@ -693,7 +693,8 @@
       sb.add('refr', purify(customReferrer || configReferrerUrl));
 
       // Add the page URL last as it may take us over the IE limit (and we don't always need it)
-      sb.add('url', purify(configCustomUrl || locationHrefAlias));
+      var url = purify(configCustomUrl || locationHrefAlias)
+      sb.add('url', addQuery(url, 'utm_source', _snq.utm));
 
       // Update cookies
       if (configUseCookies) {
@@ -703,6 +704,27 @@
 
       lastEventTime = new Date().getTime();
     }
+
+
+    var REGEX_HAS_QUERY = /\?/
+    var REGEX_ENDS_WITH_AMPERSAND = /&$/
+    function addQuery (url, key, value) {
+      if (!value) {
+        return url
+      }
+
+      url += REGEX_HAS_QUERY.test(url)
+        // /path/to
+        ? '?'
+        : REGEX_ENDS_WITH_AMPERSAND.test(url)
+          // /path/to?a=1&
+          ? ''
+          // /path/to?a=1
+          : '&'
+
+      return url + key + '=' + encodeURIComponent(value)
+    }
+
 
     /**
      * Builds a collector URL from a CloudFront distribution.
@@ -1723,4 +1745,4 @@
     };
   };
 
-}());
+// }());
