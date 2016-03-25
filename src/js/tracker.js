@@ -706,14 +706,21 @@
     }
 
 
-    var REGEX_HAS_QUERY = /\?/
     var REGEX_ENDS_WITH_AMPERSAND = /&$/
     function addQuery (url, key, value) {
       if (!value) {
         return url
       }
 
-      url += REGEX_HAS_QUERY.test(url)
+      var question_mark_index = url.indexOf('?')
+      var has_query = ~ question_mark_index
+
+      // already has query
+      if (has_query && url.indexOf(key + '=') > question_mark_index) {
+        return url
+      }
+
+      url += !has_query
         // /path/to
         ? '?'
         : REGEX_ENDS_WITH_AMPERSAND.test(url)
