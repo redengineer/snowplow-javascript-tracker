@@ -60,6 +60,8 @@ var domain
 var pv_init_data
 var url
 
+function NOOP () {}
+
 var METHODS = {
   // appId
   app: function (v) {
@@ -76,7 +78,8 @@ var METHODS = {
   },
 
   // disable this method
-  trackPageView: function (){},
+  trackPageView: NOOP,
+  newTracker: NOOP,
 
   // All page will send a pv request automatically,
   // and nobody could send pv request more than once.
